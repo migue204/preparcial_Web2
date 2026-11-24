@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 import { Role } from '../roles/role.entity';
-
+import { Reservation } from 'src/parkingspot/parkingspot.entity';
+import { ParkingSpot } from 'src/parkingspot/parkingspot.entity';
 @Entity('users')
 export class User {
   // Aquí escribirás las propiedades
@@ -34,6 +36,15 @@ export class User {
 
   @CreateDateColumn()
   created_at!: Date; //le pasamos la fecha con el DATE
+  
+   // Un usuario tiene muchas reservas (OneToMany)
+  @OneToMany(() => Reservation, (reservation) => reservation.user)
+  reservations!: Reservation[];
+
+  // Un usuario puede tener muchos espacios de parqueo (OneToMany)
+  @OneToMany(() => ParkingSpot, (spot) => spot.user)
+  parkingSpots!: ParkingSpot[];
+
 
   @ManyToMany(() => Role, (role) => role.users)
   @JoinTable({
