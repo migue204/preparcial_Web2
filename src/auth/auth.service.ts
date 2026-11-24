@@ -18,14 +18,14 @@ import { LoginDto } from './dto/login.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    // Permite consultar la tabla users en PostgreSQL
+    //Permite consultar la tabla users en PostgreSQL
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
 
-    // Crea y verifica hashes de contraseñas
+    //Crea y verifica hashes de contraseñas
     private readonly passwordHasher: PasswordHasher,
 
-    // Genera los tokens JWT del login
+    //Genera los tokens JWT del login
     private readonly tokenService: TokenService,
   ) {}
 
